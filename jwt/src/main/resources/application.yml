@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url:
+    driver-class-name:
+    username:
+    password:
+  
+jwt:
+  header: Authorization
+  secret:
+  token-validity-in-seconds: 86400
