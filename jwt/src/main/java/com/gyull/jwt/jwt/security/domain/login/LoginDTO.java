@@ -20,6 +20,6 @@ public class LoginDTO {
   private String userId;
 
   @NotNull
-  @Size(min = 8, max = 20)
+  @Size(min = 8, max = 100)
   private String userPw;
 }

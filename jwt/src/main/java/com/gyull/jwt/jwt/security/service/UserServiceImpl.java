@@ -11,7 +11,6 @@ import com.gyull.jwt.jwt.domain.member.Member;
 import com.gyull.jwt.jwt.domain.member.MemberDto;
 import com.gyull.jwt.jwt.mapper.user.UserMapper;
 import com.gyull.jwt.jwt.security.domain.authority.Authority;
-import com.gyull.jwt.jwt.security.domain.user.CustomUser;
 import com.gyull.jwt.jwt.security.utils.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;

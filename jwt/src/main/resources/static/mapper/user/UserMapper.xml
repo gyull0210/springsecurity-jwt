@@ -3,13 +3,32 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gyull.jwt.jwt.mapper.user.UserMapper">
-  <select id="insertUser" resultType="">
-
+  <insert id="signup">
+    INSERT INTO member (memId, memPw, memName)
+    VALUES (memId, memPw, memName);
+  </insert>
+  <select id="getUserWithAuthorities" resultType="com.gyull.jwt.jwt.security.domain.member.Member">
+    SELECT a.*
+FROM member m
+JOIN user_authority ua ON m.mem_id = ua.mem_id
+JOIN authority a ON ua.authority_id = a.authority_id
+WHERE m.mem_id = #{mem_id};
   </select>
-  <select id="selectUserWithAuthorities" resultType="Blog">
-    select * from Blog where id = #{id}
+  <select id="getMyUserWithAuthorities" resultType="com.gyull.jwt.jwt.security.domain.member.Member">
+    SELECT a.*
+FROM member m
+JOIN user_authority ua ON m.mem_id = ua.mem_id
+JOIN authority a ON ua.authority_id = a.authority_id
+WHERE m.mem_id = #{mem_id};
   </select>
-  <select id="selectMyUserWithAuthorities" resultType="com.gyull.jwt.jwt.security.domain.User.User">
-    select * from Blog where id = #{id}
+  <select id="findOneWithAuthoritiesByUsername" resultType="com.gyull.jwt.jwt.security.domain.member.Member">
+    SELECT a.*
+FROM member m
+JOIN user_authority ua ON m.mem_id = ua.mem_id
+JOIN authority a ON ua.authority_id = a.authority_id
+WHERE m.mem_id = #{mem_id};
   </select>
+  <update id="save">
+    select * from member where mem_id = #{mem_id}
+  </update>
 </mapper>

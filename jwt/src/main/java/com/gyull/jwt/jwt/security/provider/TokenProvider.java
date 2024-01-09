@@ -26,8 +26,6 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SecureDigestAlgorithm;
-import io.jsonwebtoken.security.SignatureAlgorithm;
 
 @Component
 public class TokenProvider implements InitializingBean {
@@ -43,6 +41,7 @@ public class TokenProvider implements InitializingBean {
   public TokenProvider(@Value("${jwt.secret}") String secret, @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds){
     this.secret = secret;
     this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+
   }
 
   @Override
@@ -74,7 +73,7 @@ public class TokenProvider implements InitializingBean {
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
-                    
+                    logger.info("Claims: "+claims);
     Collection<? extends GrantedAuthority> authorities = 
             Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                   .map(SimpleGrantedAuthority::new)
@@ -89,7 +88,7 @@ public class TokenProvider implements InitializingBean {
     try {
       Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token);
       return true;
-    } catch(io.jsonwebtoken.security.SecurityException | MalformedJwtException e){
+    } catch(SecurityException | MalformedJwtException e){
 
       logger.info("잘못된 JWT 서명입니다.");
     } catch(ExpiredJwtException e){
