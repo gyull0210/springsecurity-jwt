@@ -1,4 +1,4 @@
-package com.gyull.jwt.jwt.security.domain;
+package com.gyull.jwt.jwt.security.domain.login;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

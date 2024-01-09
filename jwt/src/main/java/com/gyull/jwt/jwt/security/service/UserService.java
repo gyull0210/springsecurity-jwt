@@ -1,18 +1,12 @@
 package com.gyull.jwt.jwt.security.service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import com.gyull.jwt.jwt.domain.member.Member;
+import com.gyull.jwt.jwt.domain.member.MemberDto;
 
-import lombok.RequiredArgsConstructor;
+public interface UserService {
+  public Member signup(MemberDto memberDto);
 
-@Service
-@RequiredArgsConstructor
-public class UserService {
-  private final 
-  private final PasswordEncoder passwordEncoder;
+  public MemberDto getUserWithAuthorities(String memId);
 
-  @Transactional
-  public User signup(UserDto userDto){
-    
-  }
+  public MemberDto getMyUserWithAuthorities();
 }

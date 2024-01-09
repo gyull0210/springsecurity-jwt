@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gyull.jwt.jwt.security.domain.user.User;
+import com.gyull.jwt.jwt.domain.member.Member;
+import com.gyull.jwt.jwt.domain.member.MemberDto;
+import com.gyull.jwt.jwt.security.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -18,22 +21,23 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class UserController {
+  private final UserService userService;
   
   @PostMapping("/signup")
-  public ResponseEntity<User> singup(@Valid @RequestBody  ){
+  public ResponseEntity<Member> singup(@Valid @RequestBody MemberDto memberDto){
 
-    return ResponseEntity.OK(userService.signup(user.));
+    return ResponseEntity.ok(userService.signup(memberDto));
   }
 
   @GetMapping("/user")
   @PreAuthorize("hasRole('USER','ADMIN')")
-  public ResponseEntity<User> getMyUserInfo(){
-    return ResponseEntity.OK(userService.getMyUserWithAuthorities.get());
+  public ResponseEntity<MemberDto> getMyUserInfo(HttpServletRequest request){
+    return ResponseEntity.ok(userService.getMyUserWithAuthorities());
   }
 
   @GetMapping("/user/{username}")
   @PreAuthorize("hasRole('ADMIN')")
-  public ResponseEntity<User> getUserInfo(@PathVariable String username){
-    return ResponseEntity.OK(userService.getUserWithAuthorities(username).get());
+  public ResponseEntity<MemberDto> getUserInfo(@PathVariable String username){
+    return ResponseEntity.ok(userService.getUserWithAuthorities(username));
   }
 }

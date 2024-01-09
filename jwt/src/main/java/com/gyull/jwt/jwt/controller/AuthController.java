@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gyull.jwt.jwt.security.domain.LoginDTO;
+import com.gyull.jwt.jwt.security.domain.login.LoginDTO;
 import com.gyull.jwt.jwt.security.domain.token.TokenDTO;
 import com.gyull.jwt.jwt.security.filter.JwtFilter;
 import com.gyull.jwt.jwt.security.provider.TokenProvider;
