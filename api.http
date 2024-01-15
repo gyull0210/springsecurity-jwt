@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:8080
+@jwt = c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+@token = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiYXV0aCI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZXhwIjoxNzA1MDAzNDYzfQ.OmDZvo_lW9231Wxy473tiA_HPS8L8q9ea1MopkzzdrzCm5KXlxtnNffIQnsLld1BWAI5Sqz1Lz8BXm9C0toVXg
+GET {{baseUrl}}/api/hello
+
+###
+POST {{baseUrl}}/api/authenticate
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json; charset=UTF-8
+Authorization: bearer {{jwt}}
+
+{
+  "memId":"user",
+  "memPw":"user"
+}
+###
+POST {{baseUrl}}/api/authenticate
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json; charset=UTF-8
+Authorization: bearer {{jwt}}
+
+{
+  "memId":"admin",
+  "memPw":"admin"
+}
+###
+GET {{baseUrl}}/api/user
+Authorization: Bearer {{token}}
+###
+GET {{baseUrl}}/api/user/admin
+Authorization: Bearer {{token}}
+###
+GET {{baseUrl}}/api/user/user
+Authorization: Bearer {{token}}
+###
+POST {{baseUrl}}/api/signup
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json; charset=UTF-8
+Authorization: bearer {{jwt}}
+
+{
+  "username":"anonymous",
+  "password":"anonymous",
+  "nickname":"anonymous"
+}
+
+###
+POST {{baseUrl}}/api/authenticate
+User-Agent: rest-client
+Accept-Language: en-GB,en-US;q=0.8,en;q=0.6,zh-CN;q=0.4
+Content-Type: application/json; charset=UTF-8
+Authorization: bearer {{jwt}}
+
+{
+  "username":"anonymous",
+  "password":"anonymous"
+}
