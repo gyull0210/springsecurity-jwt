@@ -58,6 +58,7 @@ public class TokenProvider implements InitializingBean {
 
     long now = (new Date()).getTime();
     Date validity = new Date(now + this.tokenValidityInMilliseconds);
+    logger.info("JWT 구움");
     return Jwts.builder()
             .subject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
@@ -80,13 +81,14 @@ public class TokenProvider implements InitializingBean {
                   .collect(Collectors.toList());
 
     User principal = new User(claims.getSubject(), "", authorities);
-
+    logger.info("JWT에서 인증정보 가져옴");
     return new UsernamePasswordAuthenticationToken(principal, token, authorities);
   }
 
   public boolean validateToken(String token){
     try {
       Jwts.parser().verifyWith((SecretKey) key).build().parseSignedClaims(token);
+      logger.info("JWT 인증성공입니다.");
       return true;
     } catch(SecurityException | MalformedJwtException e){
 

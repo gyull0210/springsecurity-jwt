@@ -3,7 +3,7 @@ package com.gyull.jwt.jwt.domain.member;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.gyull.jwt.jwt.security.domain.authority.Authority;
+import com.gyull.jwt.jwt.domain.authority.Authority;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

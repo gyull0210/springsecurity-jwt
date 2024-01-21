@@ -9,10 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.gyull.jwt.jwt.domain.authority.Authority;
 import com.gyull.jwt.jwt.domain.member.Member;
 import com.gyull.jwt.jwt.domain.member.MemberDto;
 import com.gyull.jwt.jwt.mapper.user.UserMapper;
-import com.gyull.jwt.jwt.security.domain.authority.Authority;
 import com.gyull.jwt.jwt.security.utils.SecurityUtil;
 
 import lombok.RequiredArgsConstructor;
@@ -26,17 +26,17 @@ public class UserServiceImpl implements UserService {
 
   //회원가입
   @Transactional
-  public Member signup(MemberDto memberDto){
+  public Optional<Member> signup(MemberDto memberDto){
     if (userMapper.findOneWithAuthoritiesByUsername(memberDto.getMemId()).orElse(null) != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
-
+        logger.info("가입은 안되었어요!"+memberDto.toString()+", "+memberDto.getMemId());
         // 가입되어 있지 않은 회원이면,
         // 권한 정보 만들고
         Authority authority = Authority.builder()
                 .authorityName("ROLE_USER")
                 .build();
-
+        logger.info("권한을 만들었어요");
         // 유저 정보를 만들어서 save
         Member user = Member.builder()
                 .memId(memberDto.getMemId())
@@ -45,8 +45,13 @@ public class UserServiceImpl implements UserService {
                 .authorities(Collections.singleton(authority))
                 .activated(true)
                 .build();
-
-        return userMapper.save(user);
+        logger.info("이제 유저정보를 저장할거예요!");
+        userMapper.insertMember(user);
+        if(userMapper.findOneWithAuthoritiesByUsername(memberDto.getMemId()).isPresent()){
+            authority.setMemIdx(userMapper.findOneWithAuthoritiesByUsername(memberDto.getMemId()).get().getMemIdx());
+            userMapper.insertAuthority(authority);
+        }
+        return userMapper.findOneWithAuthoritiesByUsername(memberDto.getMemId());
     }
 
     // 유저,권한 정보를 가져오는 메소드

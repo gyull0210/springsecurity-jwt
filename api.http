@@ -42,9 +42,9 @@ Content-Type: application/json; charset=UTF-8
 Authorization: bearer {{jwt}}
 
 {
-  "username":"anonymous",
-  "password":"anonymous",
-  "nickname":"anonymous"
+  "memId":"anonymous",
+  "memPw":"anonymous",
+  "memName":"anonymous"
 }
 
 ###
@@ -55,6 +55,6 @@ Content-Type: application/json; charset=UTF-8
 Authorization: bearer {{jwt}}
 
 {
-  "username":"anonymous",
-  "password":"anonymous"
+  "memId":"anonymous",
+  "memPw":"anonymous"
 }

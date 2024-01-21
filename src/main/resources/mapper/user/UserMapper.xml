@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gyull.jwt.jwt.mapper.user.UserMapper">
+  <resultMap type="Member" id="MemberMap">
+    <id property="memIdx" column="mem_idx"/>
+    <result property="memId" column="mem_id"/>
+    <result property="memPw" column="mem_pw"/>
+    <result property="memName" column="mem_name"/>
+    <result property="activated" column="activated"/>
+    <result property="createdAt" column="created_at"/>
+    <result property="recentAt" column="recent_at"/>
+    <collection property="authorities" resultMap="authMap"/>
+  </resultMap>
+  <resultMap type="Authority" id="authMap">
+    <result property="memIdx" column="mem_idx"/>
+    <result property="authorityName" column="authority_name"/>
+  </resultMap>
+  <select id="findOneWithAuthoritiesByUsername" resultMap="MemberMap">
+    SELECT 
+    m.mem_id, 
+    m.mem_pw, 
+    m.mem_name, 
+    m.activated, 
+    m.created_at, 
+    m.recent_at,
+    ua.authority_name
+FROM 
+    member m
+LEFT JOIN 
+(user_authority ua
+JOIN
+authority u
+    on u.authority_name=ua.authority_name)
+on m.mem_idx = ua.mem_idx
+WHERE 
+    m.mem_id = #{mem_id};
+  </select>
+  <select id="selectOneMember" resultType="Integer">
+    SELECT count(*)
+    FROM Member
+    WHERE mem_id = #{mem_id};
+  </select>
+  <insert id="insertMember" parameterType="Member">
+    INSERT INTO member (mem_id, mem_pw, mem_name)
+    VALUES (#{mem_id}, #{mem_pw}, #{mem_name});
+  </insert>
+  <insert id="insertAuthority" parameterType="authority">
+    INSERT INTO user_authority (authority_name)
+    VALUES (#{authority_name});
+  </insert>
+</mapper>

@@ -1,4 +1,4 @@
-package com.gyull.jwt.jwt.security.domain.authority;
+package com.gyull.jwt.jwt.domain.authority;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,5 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Authority {
+  private int memIdx;
   private String authorityName;
 }

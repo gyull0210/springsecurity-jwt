@@ -1,4 +1,4 @@
-package com.gyull.jwt.jwt.security.domain.token;
+package com.gyull.jwt.jwt.domain.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

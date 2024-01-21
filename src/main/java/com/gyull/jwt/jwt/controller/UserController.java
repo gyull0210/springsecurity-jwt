@@ -1,6 +1,7 @@
 package com.gyull.jwt.jwt.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +41,8 @@ public class UserController {
   }
 
   @PostMapping("/signup")
-  public ResponseEntity<Member> singup(@Valid @RequestBody MemberDto memberDto){
-    logger.info("signup api 호출됨");
+  public ResponseEntity<Optional<Member>> singup(@Valid @RequestBody MemberDto memberDto){
+    logger.info("signup api 호출됨"+memberDto);
     return ResponseEntity.ok(userService.signup(memberDto));
   }
 

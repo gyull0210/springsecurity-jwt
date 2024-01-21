@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS user_authority;
 CREATE TABLE member (
     mem_idx INT auto_increment PRIMARY KEY,
     mem_id VARCHAR(20) NOT NULL,
-    mem_pw VARCHAR(200) NOT NULL,
+    mem_pw VARCHAR(100) NOT NULL,
     mem_name VARCHAR(20) NOT NULL,
     activated BOOLEAN NOT NULL,
     created_at DATETIME NOT NULL,
